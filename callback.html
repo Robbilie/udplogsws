@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			if(window.opener) {
+				window.opener.implicitAuth(
+					location.hash.slice(1).split("&").map(p => p.split("=")).reduce((p, c) => !(p[c[0]] = c[1]) || p, {})
+				);
+			}
+		</script>
+	</body>
+</html>

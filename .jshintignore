@@ -1,0 +1,11 @@
+node_modules/
+logs/
+shit/
+log.txt
+config/
+src/lib/NotificationBuilder/
+src/lib/notif_dev/
+public/js/3rdparty/
+public/js/pages/
+public/js/c/
+public/converse/

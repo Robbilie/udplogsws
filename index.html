@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		<button id="charAuth">Auth a Character</button>
+
+		<script type="text/javascript">
+
+			function $ (id) { return document.querySelector(id); }
+			function $$ (id) { return document.querySelectorAll(id); }
+
+			var authWin;
+			var ws;
+
+			function initAuth () {
+				if(authWin)
+					authWin.close();
+				authWin = window.open(
+					"https://login.eveonline.com/oauth/authorize/" +
+						"?response_type=token" +
+						"&redirect_uri=http://localhost:4080/implicit" +
+						"&client_id=6ff94a257a874066a1c6d9bc1aa38ce9" +
+						"&scope=" +
+						"&state=",
+					"Authorize",
+					"toolbar=0,menubar=0"
+				);
+			}
+			
+			function implicitAuth (params) {
+				var data = params;
+					data.type = "auth";
+				if(ws)
+					ws.json(data);
+				if(authWin)
+					authWin.close();
+			}
+
+			window.addEventListener("load", function () {
+				$("#charAuth").addEventListener("click", initAuth);
+				ws = new WebSocket("ws://localhost:4080");
+				ws.json = function (data) { ws.send(JSON.stringify(data)); };
+			});
+		</script>
+	</body>
+</html>
